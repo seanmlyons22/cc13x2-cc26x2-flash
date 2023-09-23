@@ -1,0 +1,24 @@
+[target.'cfg(all(target_arch = "arm", target_os = "none"))']
+rustflags = [
+  "-C",
+  "link-arg=--nmagic",
+  "-C",
+  "link-arg=-Tlink.x",
+  "-C",
+  "link-arg=-Tmemory.x",
+  # Code-size optimizations.
+  # This requires nightly atm.
+  # "-Z",
+  # "trap-unreachable=no",
+  "-C",
+  "inline-threshold=5",
+  "-C",
+  "no-vectorize-loops",
+  "-C",
+  "force-frame-pointers=no",
+]
+# TBD, this requires you to build target-gen first since cc13xx_cc26xx isn't yet supported by v0.20.0 of probe-rs
+runner = "target-gen test template.yaml target/definition.yaml"
+
+[build]
+target = "thumbv7em-none-eabihf"
