@@ -39,15 +39,8 @@ git clone --recurse-submodules <repo name>
 If you have have an existing checkout (and forgot to run with recurse submodules):
 
 ```
-git submodule update --init --recursive.
+git submodule update --init --recursive
 ```
-
-## Cloning and building the PAC
-
-The TI LPRF PAC isn't yet published on crates.io. But the flash algorithm
-depeneds on it. To get it:
-
-1. Clone `git@github.com:seanmlyons22/ti-lprf-pacs.git` into a folder along side this one
 
 ## Build Script
 
