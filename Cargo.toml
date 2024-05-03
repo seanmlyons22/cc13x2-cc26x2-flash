@@ -14,7 +14,7 @@ critical-section = "1.0"
 flash-algorithm = { version = "0.4.0" }
 rtt-target = { version = "0.3", features = ["cortex-m"] }
 # TODO: remove this once the cc13x2_cc26x2_pac crate is published
-cc13x2_cc26x2_pac = { git = "https://github.com/seanmlyons22/ti-lprf-pacs.git", features = ["critical-section", "rt"]}
+cc13x2_cc26x2_pac = { git = "https://github.com/seanmlyons22/ti-lprf-pacs.git", rev = "8265cd2a714f38668b525d34d1a1ec99dee1a75f", features = ["critical-section", "rt"]}
 
 # this lets you use `cargo fix`!
 [[bin]]
