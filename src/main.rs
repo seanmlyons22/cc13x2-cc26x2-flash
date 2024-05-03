@@ -39,10 +39,10 @@ impl FlashAlgorithm for Algorithm {
             Some(p) => {
                 rprintln!("Init: Initializing peripherals");
                 // Setup PRCM, power the perpipheral and serial domains
-                p.PRCM.pdctl0periph.write(|w| w.on().set_bit());
-                p.PRCM.pdctl0serial.write(|w| w.on().set_bit());
-                p.PRCM.gpioclkgr.write(|w| w.clk_en().set_bit());
-                p.PRCM.clkloadctl.write(|w| w.load().set_bit());
+                p.prcm.pdctl0periph().write(|w| w.on().set_bit());
+                p.prcm.pdctl0serial().write(|w| w.on().set_bit());
+                p.prcm.gpioclkgr().write(|w| w.clk_en().set_bit());
+                p.prcm.clkloadctl().write(|w| w.load().set_bit());
             }
             None => {
                 rprintln!("Init: Peripherals already initialized, do nothing");
