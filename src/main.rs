@@ -1,7 +1,7 @@
 #![no_std]
 #![no_main]
 
-use cc13x2_cc26x2_pac as cc13x2_cc26x2;
+use cc13x2_26x2_pac as cc13x2_cc26x2;
 use flash_algorithm::*;
 use rtt_target::{rprintln, rtt_init_print};
 
@@ -38,7 +38,7 @@ impl FlashAlgorithm for Algorithm {
         match p {
             Some(p) => {
                 rprintln!("Init: Initializing peripherals");
-                // Setup PRCM, power the perpipheral and serial domains
+                // Setup PRCM, power the peripheral and serial domains
                 p.prcm.pdctl0periph().write(|w| w.on().set_bit());
                 p.prcm.pdctl0serial().write(|w| w.on().set_bit());
                 p.prcm.gpioclkgr().write(|w| w.clk_en().set_bit());
@@ -49,6 +49,8 @@ impl FlashAlgorithm for Algorithm {
             }
         }
 
+        // Disable interrupts so we can safely program the flash
+        cortex_m::interrupt::disable();
         // We need to disable the flash while doing flash operations
         unsafe { NOROM_VIMSModeSafeSet(VIMS_BASE, VIMS_MODE_DISABLED, true) };
 
@@ -97,6 +99,10 @@ impl Drop for Algorithm {
     fn drop(&mut self) {
         rprintln!("Deinit");
         // Renable the cache
-        unsafe { NOROM_VIMSModeSafeSet(VIMS_BASE, VIMS_MODE_ENABLED, true) };
+        unsafe {
+            NOROM_VIMSModeSafeSet(VIMS_BASE, VIMS_MODE_ENABLED, true);
+            // Renable interrupts
+            cortex_m::interrupt::enable();
+        };
     }
 }

@@ -8,13 +8,12 @@ build="build.rs"
 
 [dependencies]
 cortex-m = { version = "0.7.7", features = ["critical-section-single-core"]}
-cortex-m-rt = "0.7.4"
+cortex-m-rt = "0.7.3"
 vcell = "0.1.2"
 critical-section = "1.0"
 flash-algorithm = { version = "0.4.0" }
 rtt-target = { version = "0.3", features = ["cortex-m"] }
-# TODO: remove this once the cc13x2_cc26x2_pac crate is published
-cc13x2_cc26x2_pac = { git = "https://github.com/seanmlyons22/ti-lprf-pacs.git", rev = "7188aac87e9e47ecc3fbf5764e57d6df09d03927", features = ["critical-section", "rt"]}
+cc13x2_26x2_pac = { version = "0.10.3", features = ["critical-section", "rt"]}
 
 # this lets you use `cargo fix`!
 [[bin]]
